@@ -1,11 +1,14 @@
+drop table if exists [dbo].[biml_deid_databases]
 create table [dbo].[biml_deid_databases] (
     [id] int identity not null
 	, [database_name] sysname not null
 	, [source_sql_instance] varchar(50) not null
+	, [connection_string] varchar(500) not null
 	, [enabled] bit not null default 1
 	, constraint pk_biml_deid_databases primary key clustered ([id])
 ) 
 
+drop table if exists [dbo].[biml_deid_tables]
 create table [dbo].[biml_deid_tables] (
     [id] int identity not null
 	, [biml_deid_databases_id] int not null
@@ -15,6 +18,7 @@ create table [dbo].[biml_deid_tables] (
 	, constraint fk_biml_deid_databases foreign key ([biml_deid_databases_id]) references [dbo].[biml_deid_databases] ([id])
 )
 
+drop table if exists [dbo].[biml_deid_columns] 
 create table [dbo].[biml_deid_columns] (
     [id] int identity not null
 	, [biml_deid_tables_id] int not null
